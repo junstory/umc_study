@@ -1,2 +1,2 @@
 # umc_study
-repository for UMC Node.js Study
+repository for 5th UMC Node.js Study
