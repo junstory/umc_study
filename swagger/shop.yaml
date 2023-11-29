@@ -73,4 +73,74 @@ paths:
                 type: string
                 example: 데이터가 잘못되었습니다.
 
+/shop/review:
+    post:
+      tags:
+        - Shop
+      summary: 가게리뷰등록
+      parameters:
+      - name: review
+        in: body
+        required: true
+        schema:
+          properties:
+            member_id:
+              type: int
+              description: 회원 id
+              example: 1
+            shop_id:
+              type: int
+              description: 가게 id
+              example: 2
+            description:
+              type: string
+              description: 리뷰
+              example: 맛있어요~
+            rating:
+              type: int
+              description: 평점
+              example: 5
+            
+      responses:
+        '200':
+          description: 리뷰 등록 성공!
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 200
+              isSuccess:
+                type: boolean
+                example: true
+              code:
+                type: integer
+                example: 2000
+              message:
+                type: string
+                example: "success!"
+              data:
+                type: object
+                example: {
+                  "description": "맛있어요~",
+                  "rating": 4
+                }
+                
+        '400':
+          description: 잘못된 요청
+          schema:
+            type: object
+            properties:
+              status:
+                type: integer
+                example: 400
+              isSuccess:
+                type: boolean
+                example: false
+              code:
+                type: integer
+                example: SHOP4002
+              message:
+                type: string
+                example: 데이터가 잘못되었습니다.
         
