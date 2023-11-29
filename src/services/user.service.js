@@ -1,7 +1,8 @@
+//user.service.js
 import { BaseError } from "../../config/error";
 import { status } from "../../config/response.status";
-import { RegisterResponseDTO } from "../dtos/user.dto"
-import { addUser, getUser, getUserPreferToUserID, setPrefer } from "../models/user.dao";
+import { RegisterResponseDTO, MissionResponseDTO } from "../dtos/user.dto"
+import { addUser, getUser, addMission, getMission} from "../models/user.dao";
 
 export const joinUser = async (body) => {
     //const birth = new Date(body.birthYear, body.birthMonth, body.birthDay);
@@ -27,3 +28,17 @@ export const joinUser = async (body) => {
         return RegisterResponseDTO(await getUser(joinUserData));
     }
 }
+
+export const joinMission = async(body) =>{
+    const joinMissionData = await addMission({
+        "member_id" : body.member_id,
+        "mission_id": body.mission_id
+    })
+
+    if(joinMissionData == -1){
+        throw new BaseError(status.MISSION_ALREADY_EXIST);
+    }else{
+        return MissionResponseDTO(await getMission(joinMissionData));
+    }
+}
+//MISSION_ALREADY_EXIST: {status: StatusCodes.BAD_REQUEST, "isSuccess": false, "code": "SHOP4001", "message": "이미 도전중인 미션입니다."},

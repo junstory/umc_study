@@ -3,7 +3,7 @@
 import { pool } from "../../config/db.config";
 import { BaseError } from "../../config/error";
 import { status } from "../../config/response.status";
-import { connectFoodCategory, confirmEmail, getUserID, insertUserSql, getPreferToUserID } from "./user.sql.js";
+import { connectFoodCategory, confirmEmail, getUserID, insertUserSql, getPreferToUserID, confirmMission, insertMissionSql, getMissionID } from "./user.sql.js";
 
 // User 데이터 삽입
 export const addUser = async (data) => {
@@ -74,6 +74,48 @@ export const getUserPreferToUserID = async (userID) => {
         return prefer;
     } catch (err) {
         console.log("GETUSERPREFERTOUSERID");
+        throw new BaseError(status.PARAMETER_IS_WRONG);
+    }
+}
+
+// 미션추가
+export const addMission = async (data) => {
+    try{
+        const conn = await pool.getConnection();
+        console.log(1);
+        const [confirm] = await pool.query(confirmMission, [data.member_id, data.mission_id]);
+        console.log(2);
+        if(confirm[0].isExistMission){
+            conn.release();
+            return -1;
+        }
+        console.log(3);
+        const result = await pool.query(insertMissionSql, [data.member_id, data.mission_id]);
+        console.log(4);
+        conn.release();
+        console.log(5);
+        return result[0].insertId;
+        
+    }catch (err) {
+        console.log("ADD");
+        throw new BaseError(status.PARAMETER_IS_WRONG);
+    }
+}
+
+// 사용자가 도전한 미션 정보 얻기
+export const getMission = async (missionId) => {
+    try {
+        const conn = await pool.getConnection();
+        const [mission] = await pool.query(getMissionID, missionId);
+
+        if(mission.length == 0){
+            return -1;
+        }
+
+        conn.release();
+        return mission;
+        
+    } catch (err) {
         throw new BaseError(status.PARAMETER_IS_WRONG);
     }
 }
