@@ -22,6 +22,9 @@ export const status = {
     // article err
     ARTICLE_NOT_FOUND: {status: StatusCodes.NOT_FOUND, "isSuccess": false, "code": "ARTICLE4001", "message": "게시글이 없습니다."},
 
+    // shop err
+    SHOP_ALREADY_EXIST : {status: StatusCodes.BAD_REQUEST, "isSuccess": false, "code": "SHOP4001", "message": "이미 존재하는 가게입니다."},
+    SHOP_PARAMETER_IS_WRONG: {status: StatusCodes.BAD_REQUEST, "isSuccess": false, "code": "SHOP4002", "message": "데이터가 잘못되었습니다."},
     //Nothing
     NOT_FOUND: {status: StatusCodes.NOT_FOUND, "isSuccess": false, "code":"PAGE4001", "message":"요청한 페이지를 찾을 수 없습니다." }
 }

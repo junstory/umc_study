@@ -6,6 +6,7 @@ import { response } from './config/response';
 import { status } from './config/response.status';
 import { BaseError } from './config/error';
 import { userRouter } from './src/routes/user.route.js';
+import { shopRouter } from './src/routes/shop.route.js';
 
 import { specs } from './config/swagger.config.js';
 import SwaggerUi from 'swagger-ui-express';
@@ -23,18 +24,20 @@ app.use(express.json());                    // request의 본문을 json으로 �
 app.use(express.urlencoded({extended: false})); // 단순 객체 문자열 형태로 본문 데이터 해석
 
 
-const myLogger = (req,res,next) => {
-    console.log("LOGGED");
-    next();
-}
+// const myLogger = (req,res,next) => {
+//     console.log("LOGGED");
+//     next();
+// }
 
-app.use(myLogger);
+// app.use(myLogger);
 
 // swagger
 app.use('/api-docs', SwaggerUi.serve, SwaggerUi.setup(specs));
 //temp router 세팅
 app.use('/temp', tempRouter);
 app.use('/user', userRouter);
+app.use('/shop', shopRouter);
+
 
 
 app.get('/', function (req, res) {
