@@ -2,6 +2,9 @@
 
 //register response DTO
 export const RegisterResponseDTO = (shop) => {
-    console.log("me!!?");
     return {"name": shop[0].name, "description": shop[0].description};
+}
+
+export const ReviewResponseDTO = (review) => {
+    return {"description": review[0].description, "rating": review[0].rating};
 }
