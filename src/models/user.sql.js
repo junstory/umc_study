@@ -19,3 +19,17 @@ export const confirmMission = "SELECT EXISTS(SELECT 1 FROM member_mission WHERE 
 export const insertMissionSql = "INSERT INTO member_mission (member_id, mission_id) VALUES (?, ?);";
 
 export const getMissionID = "SELECT * FROM member_mission WHERE id = ?";
+
+
+//Review list sql
+export const getReviewByReviewId = 
+"SELECT u.name, u.id, r.id, r.rating, r.description, r.created_at "
++ "FROM member_review r JOIN shops u on r.shop_id = u.id "
++ "WHERE r.member_id = ? AND r.id < ? "
++ "ORDER BY r.id DESC LIMIT ? ;"
+
+export const getReviewByReviewIdAtFirst = 
+"SELECT u.name, u.id, r.id, r.rating, r.description, r.created_at "
++ "FROM member_review r JOIN shops u on r.shop_id = u.id "
++ "WHERE r.member_id = ? "
++ "ORDER BY r.id DESC LIMIT ? ;"

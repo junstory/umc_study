@@ -87,24 +87,18 @@ export const getReview = async (reviewId) => {
 //리뷰 목록 보기
 export const getPreviewReview = async (cursorId, size, shopId) => {
     try {
-        console.log(0);
         const conn = await pool.getConnection();
-        console.log(1);
         if(cursorId == "undefined" || typeof cursorId == "undefined" || cursorId == null){
-            console.log("처음!");
             const [reviews] = await pool.query(getReviewByReviewIdAtFirst, [parseInt(shopId), parseInt(size)]);
-            console.log("d")
             conn.release();
             return reviews;
     
         }else{
-            console.log(2);
             const [reviews] = await pool.query(getReviewByReviewId, [parseInt(shopId), parseInt(cursorId), parseInt(size)]);
             conn.release();
             return reviews;    
         }
     } catch (err) {
-        console.log("me");
         throw new BaseError(status.PARAMETER_IS_WRONG);
     }
 }
