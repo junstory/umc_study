@@ -13,3 +13,16 @@ export const insertReviewSql = "INSERT INTO member_review (member_id, shop_id, d
 export const confirmShopExist = "SELECT EXISTS(SELECT 1 FROM shops WHERE id = ?) as isExistShop;";
 
 export const getReviewID = "SELECT * FROM member_review WHERE id = ?";
+
+//Review list sql
+export const getReviewByReviewId = 
+"SELECT u.name, u.id, r.id, r.rating, r.description, r.created_at "
++ "FROM member_review r JOIN member u on r.member_id = u.id "
++ "WHERE r.shop_id = ? AND r.id < ? "
++ "ORDER BY r.id DESC LIMIT ? ;"
+
+export const getReviewByReviewIdAtFirst = 
+"SELECT u.name, u.id, r.id, r.rating, r.description, r.created_at "
++ "FROM member_review r JOIN member u on r.member_id = u.id "
++ "WHERE r.shop_id = ? "
++ "ORDER BY r.id DESC LIMIT ? ;"
