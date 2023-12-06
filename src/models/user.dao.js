@@ -3,7 +3,7 @@
 import { pool } from "../../config/db.config";
 import { BaseError } from "../../config/error";
 import { status } from "../../config/response.status";
-import { connectFoodCategory, confirmEmail, getUserID, insertUserSql, getPreferToUserID, confirmMission, insertMissionSql, getMissionID, getReviewByReviewIdAtFirst, getReviewByReviewId } from "./user.sql.js";
+import { connectFoodCategory, confirmEmail, getUserID, insertUserSql, getPreferToUserID, confirmMission, insertMissionSql, getMissionID, getReviewByReviewIdAtFirst, getReviewByReviewId, getMissionByUserIdAtFirst, getMissionByUserId } from "./user.sql.js";
 
 // User 데이터 삽입
 export const addUser = async (data) => {
@@ -123,19 +123,38 @@ export const getMission = async (missionId) => {
 //리뷰 목록 보기
 export const getPreviewReview = async (cursorId, size, userId) => {
     try {
+        const conn = await pool.getConnection();
+        if(cursorId == "undefined" || typeof cursorId == "undefined" || cursorId == null){
+            const [reviews] = await pool.query(getReviewByReviewIdAtFirst, [parseInt(userId), parseInt(size)]);
+            conn.release();
+            return reviews;
+    
+        }else{
+            const [reviews] = await pool.query(getReviewByReviewId, [parseInt(userId), parseInt(cursorId), parseInt(size)]);
+            conn.release();
+            return reviews;    
+        }
+    } catch (err) {
+        throw new BaseError(status.PARAMETER_IS_WRONG);
+    }
+}
+
+//유저 미션 목록 보기
+export const getPreviewMission = async (cursorId, size, userId) => {
+    try {
         console.log(0);
         const conn = await pool.getConnection();
         console.log(1);
         if(cursorId == "undefined" || typeof cursorId == "undefined" || cursorId == null){
             console.log("처음!");
-            const [reviews] = await pool.query(getReviewByReviewIdAtFirst, [parseInt(userId), parseInt(size)]);
+            const [reviews] = await pool.query(getMissionByUserIdAtFirst, [parseInt(userId), parseInt(size)]);
             console.log("d")
             conn.release();
             return reviews;
     
         }else{
             console.log(2);
-            const [reviews] = await pool.query(getReviewByReviewId, [parseInt(userId), parseInt(cursorId), parseInt(size)]);
+            const [reviews] = await pool.query(getMissionByUserId, [parseInt(userId), parseInt(cursorId), parseInt(size)]);
             conn.release();
             return reviews;    
         }
