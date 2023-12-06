@@ -93,6 +93,7 @@ export const getPreviewReview = async (cursorId, size, shopId) => {
         if(cursorId == "undefined" || typeof cursorId == "undefined" || cursorId == null){
             console.log("처음!");
             const [reviews] = await pool.query(getReviewByReviewIdAtFirst, [parseInt(shopId), parseInt(size)]);
+            console.log("d")
             conn.release();
             return reviews;
     
