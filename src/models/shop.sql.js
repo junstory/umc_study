@@ -26,3 +26,17 @@ export const getReviewByReviewIdAtFirst =
 + "FROM member_review r JOIN member u on r.member_id = u.id "
 + "WHERE r.shop_id = ? "
 + "ORDER BY r.id DESC LIMIT ? ;"
+
+//mission list sql
+
+export const getMissionByReviewIdAt = 
+"SELECT s.name, s.id, m.id, m.title, m.description, m.points, m.created_at "
++ "FROM missions m JOIN shops s on m.shop_id = s.id "
++ "WHERE m.shop_id = ? AND m.id < ? "
++ "ORDER BY m.id DESC LIMIT ? ;"
+
+export const getMissionByReviewIdAtFirst = 
+"SELECT s.name, s.id, m.id, m.title, m.description, m.points, m.created_at "
++ "FROM missions m JOIN shops s on m.shop_id = s.id "
++ "WHERE m.shop_id = ? "
++ "ORDER BY m.id DESC LIMIT ? ;"
