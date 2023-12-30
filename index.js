@@ -51,6 +51,11 @@ app.get('/hello', function (req, res) {
     res.send('Hello World')
 })
 
+app.get('/healthcheker', function (req, res) {
+    console.log("/");
+    res.send('Hello UMC!')
+})
+
 //temp error handling
 app.use((req,res,next)=>{
     const err = new BaseError(status.NOT_FOUND);
