@@ -51,8 +51,7 @@ app.get('/hello', function (req, res) {
     console.log("/hello");
     res.send('Hello World')
 })
-
-app.get('/healthcheker', function (req, res) {
+app.get('/healthchecker', function (req, res) {
     console.log("/");
     res.send('Hello UMC!')
 })
