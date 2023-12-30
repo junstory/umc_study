@@ -46,6 +46,7 @@ app.get('/', function (req, res) {
     res.send('Hello UMC!')
 })
 
+
 app.get('/hello', function (req, res) {
     console.log("/hello");
     res.send('Hello World')
