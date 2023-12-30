@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "nodemon",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --exec babel-node index.js"
+    "node-start": "nodemon --exec babel-node index.js",
+    "build": "webpack",
+    "start": "node main.js"
   },
   "author": "",
   "license": "ISC",
@@ -26,6 +28,9 @@
     "nodemon": "^3.0.1",
     "swagger-cli": "^4.0.4",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^5.0.0"
+    "swagger-ui-express": "^5.0.0",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-node-externals": "^3.0.0"
   }
 }
